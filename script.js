@@ -1,12 +1,8 @@
 // Firebase configuration
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getDatabase, ref, set, get, onValue } from "firebase/database";
 
 // Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyDyLCome6_8H9fMzkNYTGdufgzbyEzrBAA",
   authDomain: "bingo-online-17316.firebaseapp.com",
@@ -20,7 +16,8 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+const db = getDatabase(app);
+
 // Select HTML elements
 const bingoCard = document.getElementById('bingo-card');
 const shuffleBtn = document.getElementById('shuffle-btn');
@@ -37,14 +34,17 @@ let playerCard = [];
 
 // Initialize game
 function initializeGame() {
-  // Check for player ID in the database
-  db.ref('game').child('currentPlayers').once('value', (snapshot) => {
-    if (snapshot.numChildren() >= 2) {
-      alert('2 players are already playing.');
-      return;
+  const currentPlayersRef = ref(db, 'game/currentPlayers');
+  get(currentPlayersRef).then(snapshot => {
+    if (snapshot.exists()) {
+      const players = snapshot.val();
+      if (Object.keys(players).length >= 2) {
+        alert('2 players are already playing.');
+        return;
+      }
     }
-    
-    db.ref('game/currentPlayers').child(playerID).set(true);
+
+    set(ref(db, `game/currentPlayers/${playerID}`), true);
 
     generateBingoCard();
     setupListeners();
@@ -103,8 +103,9 @@ function checkWinCondition() {
 
 // Setup Firebase listeners for real-time updates
 function setupListeners() {
-  db.ref('game/currentNumber').on('value', (snapshot) => {
-    if (snapshot.val()) {
+  const currentNumberRef = ref(db, 'game/currentNumber');
+  onValue(currentNumberRef, (snapshot) => {
+    if (snapshot.exists()) {
       const number = snapshot.val();
       calledNumbers.push(number);
       calledNumberDisplay.textContent = `Number: ${number}`;
@@ -135,7 +136,7 @@ manualGenerateBtn.addEventListener('click', () => {
     alert('Invalid number');
     return;
   }
-  db.ref('game/currentNumber').set(number);
+  set(ref(db, 'game/currentNumber'), number);
 });
 
 // Start the game
