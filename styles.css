@@ -1,0 +1,68 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: #f0f0f0;
+}
+
+h1 {
+  margin-top: 20px;
+}
+
+.bingo-card {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  width: 300px;
+  margin: 20px auto;
+}
+
+.cell {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  border: 2px solid #000;
+  cursor: pointer;
+}
+
+.cell.marked {
+  background-color: #66bb6a;
+}
+
+.button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+}
+
+#called-number {
+  font-size: 24px;
+  margin: 20px 0;
+}
+
+.called-numbers {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.called-numbers span {
+  padding: 10px;
+  background-color: #ffeb3b;
+  border: 1px solid #000;
+  width: 30px;
+  text-align: center;
+}
+
+.win-message {
+  font-size: 36px;
+  color: green;
+  margin-top: 20px;
+}
+
+.win-message.hidden {
+  display: none;
+}
