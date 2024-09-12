@@ -13,7 +13,9 @@
             padding: 20px;
         }
         .game-container {
-            display: inline-block;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             margin: 10px;
             border: 1px solid #ddd;
             border-radius: 8px;
@@ -21,8 +23,7 @@
             background-color: #fff;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             width: 200px; /* Adjust the width as needed */
-            height: 200px; /* Adjust the height to match the width for a square shape */
-            text-align: center;
+            height: 200px; /* Height to match the width for a square shape */
         }
         .game-container img {
             width: 100%;
@@ -34,11 +35,15 @@
             font-size: 16px; /* Adjust as needed */
             color: #333;
             background-color: #f9f9f9;
+            width: 100%; /* Ensures the name takes full width */
+            text-align: center; /* Center the text */
+            box-sizing: border-box; /* Ensures padding is included in the height calculation */
         }
         .game-container a {
             text-decoration: none;
             color: inherit;
-            display: block;
+            display: flex;
+            flex-direction: column;
             height: 100%;
         }
     </style>
@@ -47,19 +52,19 @@
     <h1>Siva's Games</h1>
     <div class="game-container">
         <a href="bingo.html">
-            <img src="bingothumb.png" alt="Game 1">
+            <img src="bingothumb.png" alt="Bingo Game Thumbnail">
             <div class="game-name">BINGO</div>
         </a>
     </div>
     <div class="game-container">
         <a href="cargame.html">
-            <img src="cargamethumb.png" alt="Game 2">
+            <img src="cargamethumb.png" alt="Car Race Game Thumbnail">
             <div class="game-name">CAR RACE</div>
         </a>
     </div>
     <div class="game-container">
         <a href="game3.html">
-            <img src="images/game3.jpg" alt="Game 3">
+            <img src="images/game3.jpg" alt="Game 3 Thumbnail">
             <div class="game-name">Game 3</div>
         </a>
     </div>
