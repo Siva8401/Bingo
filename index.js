@@ -1,5 +1,5 @@
-const table = document.querySelector("#tblBingo")
-const letter = document.querySelectorAll(".letters-bingo")
+const table = document.querySelector("#tblBingo");
+const letter = document.querySelectorAll(".letters-bingo");
 
 const winningPositions = [
     [0, 1, 2, 3, 4],    // Row 1
@@ -58,8 +58,12 @@ for (i = 0; i < 5; i++) {
 
 const cell = document.querySelectorAll(".main-table-cell");
 let winningIterator = 0;
+let gameWon = false; // Flag to check if the game is won
+
 cell.forEach(e => {
     e.addEventListener("click", () => {
+        if (gameWon) return; // Prevent further clicks once the game is won
+
         e.classList.add("strickout");
 
         if (matchWin()) {
@@ -67,8 +71,8 @@ cell.forEach(e => {
 
             winningIterator++;
             if (winningIterator === 5) {
-                alert('B I N G O');
-                location.reload();
+                gameWon = true; // Set the flag to prevent further clicks
+                displayWinningImage(); // Call the function to display the image
             }
         }
     });
@@ -86,12 +90,15 @@ function matchWin() {
         if (ite === 5) {
             let indexWin = winningPositions.indexOf(combination);
             winningPositions.splice(indexWin, 1);
+
+            // Apply strickout to all cells in the winning combination
+            combination.forEach(index => {
+                cell[index].classList.add("strickout");
+            });
+
+            return true;
         }
 
-        return combination.every(index => {
-            return cell[index].classList.contains("strickout");
-        });
+        return false;
     });
 }
-
-console.log(arr);
