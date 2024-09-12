@@ -56,9 +56,11 @@ body:focus {
 
 .strickout {
     text-decoration: line-through;
-    color: #a6a3a3;
+    color: #000000;
     font-size: 18pt;
     pointer-events: none;
+    background-color: #5f5e5bd3; /* This changes the color */
+    border-radius: 20%; /* This will ensure the color stays within the radius */
 }
 
 .show-bingo {
