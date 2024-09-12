@@ -20,21 +20,26 @@
             overflow: hidden;
             background-color: #fff;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            width: 200px; /* Adjust this width as needed */
+            width: 200px; /* Adjust the width as needed */
+            height: 200px; /* Adjust the height to match the width for a square shape */
+            text-align: center;
         }
         .game-container img {
             width: 100%;
-            height: auto;
+            height: 100%;
+            object-fit: cover; /* Ensures the image covers the container */
         }
         .game-name {
             padding: 10px;
-            font-size: 16px; /* Adjust this size as needed */
+            font-size: 16px; /* Adjust as needed */
             color: #333;
             background-color: #f9f9f9;
         }
         .game-container a {
             text-decoration: none;
             color: inherit;
+            display: block;
+            height: 100%;
         }
     </style>
 </head>
