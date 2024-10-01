@@ -11,7 +11,22 @@
             background-color: #f0f0f0;
             margin: 0;
             padding: 20px;
+            position: relative;
+            overflow: hidden;
         }
+
+        /* iframe that acts as the background */
+        .background-iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            z-index: -1; /* Send it behind the main content */
+            opacity: 0.5; /* Adjust opacity for visibility */
+        }
+
         .game-container {
             display: inline-block;
             margin: 10px;
@@ -20,26 +35,40 @@
             overflow: hidden;
             background-color: #fff;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            width: 200px; /* Adjust this width as needed */
+            width: 200px;
         }
+
         .game-container img {
             width: 100%;
             height: auto;
         }
+
         .game-name {
             padding: 10px;
-            font-size: 16px; /* Adjust this size as needed */
+            font-size: 16px;
             color: #333;
             background-color: #f9f9f9;
         }
+
         .game-container a {
             text-decoration: none;
             color: inherit;
         }
+
+        @media (max-width: 600px) {
+            .game-container {
+                width: 100%; /* Full width on small screens */
+                margin: 10px 0;
+            }
+        }
     </style>
 </head>
 <body>
-    <h1>Siva's Games</h1>
+    <!-- Embedding the Electric.html as background using iframe -->
+    <iframe class="background-iframe" src="Electric.html"></iframe>
+
+    <!-- Main content: Games collection -->
+        <h1>Siva's Games</h1>
     <div class="game-container">
         <a href="bingo.html">
             <img src="bingothumb.png" alt="Bingo Game Thumbnail">
@@ -126,10 +155,13 @@
             <div class="game-name">AGE CALCULATOR</div>
         </a>
     </div>
+                 <div class="game-container">
+        <a href="https://siva8401.github.io/Colorongame/">
+            <img src="coloron.png" alt="Colororon Game">
+            <div class="game-name">COLORON GAME</div>
+        </a>
+    </div>
 
-
-
-    
     <!-- Add more game containers as needed -->
 </body>
 </html>
