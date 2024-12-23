@@ -155,8 +155,8 @@
         </div>
         <button class="calculate-btn" onclick="calculateAge()">Calculate</button>
         <button class="reset-btn" onclick="resetForm()">Reset</button>
-        <button class="redirect-btn" onclick="redirectToPage()">Go to Next Page</button>
-        <button class="redirect-btn" onclick="redirectToPage()">Go to Next Page</button>
+        <button class="redirect-btn" onclick="redirectToPage1()">MCC WORK PROCESS</button>
+        <button class="redirect-btn" onclick="redirectToPage2()">Siva's Games</button>
         <div class="result-box" id="result">
             <h3>Result:</h3>
             <p>Age:</p>
@@ -232,9 +232,15 @@
         }
 
         // Redirect to another page
-        function redirectToPage() {
-            window.location.href = "https://www.example.com";
+        function redirectToPage1() {
+            window.location.href = "https://sites.google.com/view/mcc-works/home";
         }
+        
+        // Redirect to another page
+        function redirectToPage2() {
+            window.location.href = "https://siva8401.github.io/Bingo/";
+        }
+        
 
         // Initialize today's date on page load
         populateCurrentDate();
