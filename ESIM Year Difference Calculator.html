@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESIM Year Difference</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            background: linear-gradient(to bottom right, #84a9ac, #3b6978);
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Header */
+        .header {
+            width: 100%;
+            padding: 20px 0;
+            background: #3b6978;
+            color: white;
+            text-align: center;
+            font-size: 2em;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            animation: slideDown 1s ease-in-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .container:hover {
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            transform: scale(1.02);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .result-box {
+            background-color: #f0f8ff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-top: 20px;
+            text-align: left;
+            border-radius: 8px;
+        }
+
+        h2 {
+            color: #3b6978;
+        }
+
+        p, h3 {
+            font-size: 1.1em;
+            margin: 5px 0;
+        }
+
+        input[type="date"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin: 10px 0;
+            cursor: pointer;
+        }
+
+        input[type="date"]:hover {
+            border-color: #3b6978;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 10px 5px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            color: #fff;
+            transition: transform 0.3s ease, background-color 0.3s;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+        }
+
+        .calculate-btn {
+            background-color: #3b6978;
+        }
+
+        .calculate-btn:hover {
+            background-color: #35545d;
+        }
+
+        .reset-btn {
+            background-color: #ff6f61;
+        }
+
+        .reset-btn:hover {
+            background-color: #e65d55;
+        }
+
+        .redirect-btn {
+            background-color: #4caf50;
+        }
+
+        .redirect-btn:hover {
+            background-color: #438a47;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="header">
+        ESIM YEAR CALCULATOR
+    </div>
+
+    <div class="container">
+        <h2>ESIM YEAR DIFFERENCE FROM TODAY DATE</h2>
+        <div>
+            <p><strong>Today's Date: </strong> <span id="currentDate"></span></p>
+        </div>
+        <div>
+            <label for="targetDate"><strong>ESIM Expiry Date:</strong></label>
+            <input type="date" id="targetDate" min="" />
+        </div>
+        <button class="calculate-btn" onclick="calculateAge()">Calculate</button>
+        <button class="reset-btn" onclick="resetForm()">Reset</button>
+        <button class="redirect-btn" onclick="redirectToPage()">Go to Next Page</button>
+        <button class="redirect-btn" onclick="redirectToPage()">Go to Next Page</button>
+        <div class="result-box" id="result">
+            <h3>Result:</h3>
+            <p>Age:</p>
+        </div>
+    </div>
+
+    <script>
+        // Display today's date
+        function populateCurrentDate() {
+            const today = new Date();
+            const todayDay = String(today.getDate()).padStart(2, '0');
+            const todayMonth = String(today.getMonth() + 1).padStart(2, '0'); // Month is 0-indexed
+            const todayYear = today.getFullYear();
+
+            // Display today's date in the result box
+            document.getElementById('currentDate').innerText = `${todayDay}-${todayMonth}-${todayYear}`;
+
+            // Set the minimum date for the target date picker to today's date
+            const todayFormatted = `${todayYear}-${todayMonth}-${todayDay}`;
+            document.getElementById('targetDate').setAttribute('min', todayFormatted);
+        }
+
+        // Function to calculate the age difference
+        function calculateAge() {
+            const targetDateInput = document.getElementById('targetDate').value;
+
+            if (!targetDateInput) {
+                alert("Please select a target date.");
+                return;
+            }
+
+            const targetDate = new Date(targetDateInput);
+            const today = new Date();
+
+            if (targetDate <= today) {
+                alert("The target date must be after today's date.");
+                return;
+            }
+
+            const diffInMilliseconds = targetDate - today;
+
+            // Calculate differences
+            const diffInDays = Math.floor(diffInMilliseconds / (1000 * 60 * 60 * 24));
+            const diffInYears = Math.floor(diffInDays / 365.25);
+            const diffInMonths = Math.floor(diffInDays / 30.4375);
+            const remainingMonths = diffInMonths % 12;
+            const remainingDays = diffInDays % Math.floor(365.25 / 12);
+
+            const diffInWeeks = Math.floor(diffInDays / 7);
+            const remainingWeekDays = diffInDays % 7;
+
+            const diffInHours = diffInDays * 24;
+            const diffInMinutes = diffInHours * 60;
+            const diffInSeconds = diffInMinutes * 60;
+
+            // Display the result
+            const result = `
+                <p>${diffInYears} years ${remainingMonths} months ${remainingDays} days</p>
+                <p>${diffInMonths} months ${remainingDays} days</p>
+                <p>${diffInWeeks} weeks ${remainingWeekDays} days</p>
+                <p>${diffInDays} days</p>
+                <p>${diffInHours} hours</p>
+                <p>${diffInMinutes} minutes</p>
+                <p>${diffInSeconds} seconds</p>
+            `;
+            document.getElementById('result').innerHTML = `<h3>Result:</h3>${result}`;
+        }
+
+        // Reset the form
+        function resetForm() {
+            document.getElementById('targetDate').value = "";
+            document.getElementById('result').innerHTML = "<h3>Result:</h3><p>Age:</p>";
+        }
+
+        // Redirect to another page
+        function redirectToPage() {
+            window.location.href = "https://www.example.com";
+        }
+
+        // Initialize today's date on page load
+        populateCurrentDate();
+    </script>
+</body>
+</html>
